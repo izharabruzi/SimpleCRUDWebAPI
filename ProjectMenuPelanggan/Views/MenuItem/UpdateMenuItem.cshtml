@@ -1,0 +1,60 @@
+﻿@model Model.MenuItemModel.MenuItem
+
+@{
+    ViewData["Title"] = "Update Barang";
+}
+
+<h1>Update New Barang</h1>
+
+<form method="post" action="/MenuItem/UpdatedMenuItem " onsubmit="return confirm('Edit barang?')">
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <input type="hidden" id="IdBarang" name="Menu.IdBarang" value="@Model?.IdBarang" style="width: 300px;" />
+        </div>
+
+
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label for="NamaBarang" style="width: 100px; text-align: left; margin-right: 10px;">Nama Barang</label>
+                <input type="text" id="NamaBarang" name="Menu.NamaBarang" value="@Model?.NamaBarang" style="width: 300px;" />
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label for="JumlahBarang" style="width: 100px; text-align: left; margin-right: 10px;">Jumlah Barang</label>
+                <input type="text" id="JumlahBarang" name="Menu.JumlahBarang" value="@Model?.JumlahBarang" style="width: 300px;" />
+            </div>
+
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label for="HargaBarang" style="width: 100px; text-align: left; margin-right: 10px;">Harga Barang</label>
+                <input type="text" id="HargaBarang" name="Menu.HargaBarang" value="@Model?.HargaBarang" style="width: 300px;" />
+            </div>
+
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                <button type="submit" style="width: 150px; height: 40px; margin-right: 10px;">Edit</button>
+                <button type="button" onclick="location.href='@Url.Action("MenuItem","MenuItem")'" style="width: 150px; height: 40px;">Cancel</button>
+                <button type="button" onclick="deleteMenuItem()" style="width: 150px; height: 40px;">Delete</button>
+            </div>
+        </div>
+
+</form>
+
+
+@section Scripts {
+    <script>
+        function deleteMenuItem() {
+            if (confirm('Anda yakin ingin menghapus item ini?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteMenuItem", "MenuItem", new { id = @Model?.IdBarang })',
+                    type: 'POST',
+                    success: function (result) {
+                        alert('Item berhasil dihapus.');
+                        location.href = '@Url.Action("MenuItem","MenuItem")';
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Terjadi kesalahan saat menghapus item.');
+                    }
+                });
+            }
+        }
+    </script>
+}

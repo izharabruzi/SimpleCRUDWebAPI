@@ -1,0 +1,29 @@
+﻿@model Model.MenuItemModel.MenuItem
+
+
+<h1>Create New Barang</h1>
+
+<form method="post" action="/MenuItem/CreatedMenuItem" onsubmit="return confirm('Tambahkan customer baru?')">
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="NamaBarang" style="width: 100px; text-align: left; margin-right: 10px;">Nama Barang</label>
+            <input type="text" id="NamaBarang" name="Menu.NamaBarang" value="@Model?.NamaBarang" style="width: 300px;" />
+        </div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="JumlahBarang" style="width: 100px; text-align: left; margin-right: 10px;">Jumlah Barang</label>
+            <input type="text" id="JumlahBarang" name="Menu.JumlahBarang" value="@Model?.JumlahBarang" style="width: 300px;" />
+        </div>
+
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="HargaBarang" style="width: 100px; text-align: left; margin-right: 10px;">Harga Barang</label>
+            <input type="text" id="HargaBarang" name="Menu.HargaBarang" value="@Model?.HargaBarang" style="width: 300px;" />
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+            <button type="submit" style="width: 150px; height: 40px; margin-right: 10px;">Create</button>
+            <button type="button" onclick="location.href='@Url.Action("MenuItem","MenuItem")'" style="width: 150px; height: 40px;">Cancel</button>
+        </div>
+    </div>
+
+</form>

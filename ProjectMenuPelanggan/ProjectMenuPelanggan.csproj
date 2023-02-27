@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataPelangganModel\DataPelangganModel.csproj" />
+    <ProjectReference Include="..\IRepository\IRepository.csproj" />
+    <ProjectReference Include="..\IService\IService.csproj" />
+    <ProjectReference Include="..\MenuItemModel\MenuItemModel.csproj" />
+    <ProjectReference Include="..\PembelianModel\PembelianModel.csproj" />
+    <ProjectReference Include="..\Repository\Repository.csproj" />
+    <ProjectReference Include="..\Service\Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Customer\" />
+  </ItemGroup>
+
+</Project>

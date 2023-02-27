@@ -1,0 +1,83 @@
+﻿@model Model.DataPelangganModel.DataPelanggan
+
+@{
+    ViewData["Title"] = "Update Pelanggan";
+}
+
+<h1>Update New Customer Identity</h1>
+
+<form method="post" action="/Home/UpdatedCustomer " onsubmit="return confirm('Edit customer?')">
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <input type="hidden" id="id" name="Pelanggan.Id" value="@Model?.Id" style="width: 300px;" />
+        </div>
+
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="nama" style="width: 100px; text-align: left; margin-right: 10px;">Nama</label>
+            <input type="text" id="nama" name="Pelanggan.Nama" value="@Model?.Nama" style="width: 300px;" />
+        </div>
+
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label for="kelamin" style="width: 100px; text-align: left; margin-right: 10px;">Jenis Kelamin</label>
+                <div id="kelamin">
+
+                    <input type="radio" id="laki-laki" name="Pelanggan.Kelamin" value="true" @if(Model?.Kelamin == true) {
+                    <text>checked</text>
+                    }>
+                    <label for="laki-laki">Laki-laki</label>
+
+                    <input type="radio" id="perempuan" name="Pelanggan.Kelamin" value="false" @if(Model?.Kelamin == false) {
+                    <text>checked</text>
+                    }>
+                    <label for="perempuan">Perempuan</label>
+                </div>
+            </div>
+
+
+
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="saldo" style="width: 100px; text-align: left; margin-right: 10px;">Masukan Jumlah Saldo</label>
+            <input type="number" id="saldo" name="Pelanggan.Saldo" value="@Model?.Saldo" style="width: 300px;" />
+        </div>
+
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                <button type="submit" style="width: 150px; height: 40px; margin-right: 10px;">Edit</button>
+                <button type="button" onclick="location.href='@Url.Action("Customer","Home")'" style="width: 150px; height: 40px;">Cancel</button>
+                <button type="button" onclick="deleteCustomer()" style="width: 150px; height: 40px;">Delete</button>
+            </div>
+
+
+    </div>
+
+</form>
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        function deleteCustomer() {
+            if (confirm('Anda yakin ingin menghapus pelanggan ini?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteCustomer", "Home", new { id = @Model?.Id })',
+                    type: 'POST',
+                    success: function (result) {
+                        alert('Pelanggan berhasil dihapus.');
+                        location.href = '@Url.Action("Customer", "Home")';
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Terjadi kesalahan saat menghapus pelanggan.');
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+

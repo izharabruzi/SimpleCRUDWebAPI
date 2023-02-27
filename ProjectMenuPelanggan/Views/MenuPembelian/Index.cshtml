@@ -1,0 +1,44 @@
+﻿@model List<Model.MenuItemModel.MenuItem>
+
+@{
+    ViewData["Title"] = "Menu Pembelian";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Menu Pembelian</h1>
+</div>
+
+@*<div class="text-left">
+    <label for="product-dropdown">Pilih produk yang ingin dibeli:</label>
+    <select id="product-dropdown" name="product">
+        <option value="">Select a product</option>
+        <option value="Product 1">Product 1</option>
+        <option value="Product 2">Product 2</option>
+        <option value="Product 3">Product 3</option>
+        <option value="Product 4">Product 4</option>
+    </select>
+</div>*@
+
+<div class="text-left">
+    <label for="product-dropdown">Pilih produk yang ingin dibeli:</label>
+    <select id="product-dropdown" name="product">
+        <option value="">Select a product</option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.NamaBarang">@item.NamaBarang</option>
+        }
+    </select>
+</div>
+
+
+
+@*<div class="text-left">
+    <label for="product-dropdown">Pilih produk yang ingin dibeli:</label>
+    <select id="product-dropdown" name="NamaBarang">
+        <option value="">Select a product</option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.IdBarang">@item.NamaBarang</option>
+        }
+    </select>
+</div>*@

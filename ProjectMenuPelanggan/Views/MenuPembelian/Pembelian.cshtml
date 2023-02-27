@@ -1,0 +1,310 @@
+﻿@model (List<Model.PembelianModel.Pembelian> barangitem, List<Model.PembelianModel.Pembelian> customer, List<Model.PembelianModel.Pembelian> pembelian )
+
+
+@{
+    ViewData["Title"] = "Menu Pembelian";
+}
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Sedang Dikembangkan</h1>
+</div>
+
+
+
+
+
+
+
+   @* <form method="post" action="@Url.Action("SubmitPembelian", "MenuPembelian")" id="form1">
+    <div class="text-left">
+        <input type="hidden" name="OrderId" value="@Model.pembelian" />
+        <label for="product-dropdown">Pilih barang yang ingin dibeli:</label>
+        <select id="product-dropdown" name="NamaBarang" required>
+            <option value=""></option>
+            @foreach (var item in Model.barangitem)
+            {
+                <option value="@item.NamaBarang" data-harga="@item.HargaBarang" id-barang="@item.IdBarang">@item.NamaBarang</option>
+            }
+        </select>
+        <span id="price-span"></span>
+        <div>
+            <input type="text" id="product-input" name="product-input">
+        </div>
+        <input type="hidden" name="HargaBarang" id="harga-barang" value="">
+        <input type="hidden" name="IdBarang" id="id-barang" value="">
+    </div>
+
+    <div class="text-left">
+        <label for="nama-dropdown">Pilih Nama Customer:</label>
+        <select id="nama-dropdown" name="nama" required>
+            <option value=""></option>
+            @foreach (var item in Model.customer)
+            {
+                <option value="@item.Nama" data-saldo="@item.Saldo" id_customer="@item.Id">@item.Nama</option>
+            }
+        </select>
+        <span id="saldo-span"></span>
+        <div>
+            <input type="text" id="nama-input" name="nama-input">
+        </div>
+        <input type="hidden" name="Saldo" id="saldo-customer" value="">
+        <input type="hidden" name="CustomerId" id="id-customer" value="">
+    </div>
+        <button type="submit" class="btn btn-danger" id="submit-btn">Beli Barang?</button>
+    </form>
+
+
+
+
+@if (Model.pembelian.Any())
+{
+    var lastPembelian = Model.pembelian.Last();
+    <input type="hidden" name="NamaBarang" value="[selected product name]">
+    <input type="hidden" name="HargaBarang" value="[selected product price]">
+
+    <form method="post" action="@Url.Action("UpdateMenuItemBarang", "MenuPembelian", new { id = lastPembelian.OrderId })" id="form2"></form>
+}*@
+
+
+
+
+    @*<form method="post" action="@Url.Action("SubmitPembelian", "MenuPembelian")">
+        <div class="text-left">
+            <label for="product-dropdown">Pilih barang yang ingin dibeli:</label>
+            <select id="product-dropdown" name="NamaBarang" required>
+                <option value=""></option>
+                @foreach (var item in Model.barangitem)
+                {
+                    <option value="@item.NamaBarang" data-harga="@item.HargaBarang" id-barang="@item.IdBarang">@item.NamaBarang</option>
+                }
+            </select>
+            <span id="price-span"></span>
+            <div>
+                <input type="text" id="product-input" name="product-input">
+            </div>
+            <input type="hidden" name="HargaBarang" id="harga-barang" value="">
+            <input type="hidden" name="IdBarang" id="id-barang" value="">
+        </div>
+
+        <div class="text-left">
+            <label for="nama-dropdown">Pilih Nama Customer:</label>
+            <select id="nama-dropdown" name="nama" required>
+                <option value=""></option>
+                @foreach (var item in Model.customer)
+                {
+                    <option value="@item.Nama" data-saldo="@item.Saldo" id_customer="@item.Id">@item.Nama</option>
+                }
+            </select>
+            <span id="saldo-span"></span>
+            <div>
+                <input type="text" id="nama-input" name="nama-input">
+            </div>
+            <input type="hidden" name="Saldo" id="saldo-customer" value="">
+            <input type="hidden" name="CustomerId" id="id-customer" value="">
+        </div>
+
+        @if (Model.pembelian.Any())
+        {
+            var lastPembelian = Model.pembelian.Last();
+            <input type="hidden" name="OrderId" value="@lastPembelian.OrderId" />
+            <button type="submit" formaction="@Url.Action("UpdateMenuItemBarang", "MenuPembelian",new { id = lastPembelian.OrderId })" class="btn btn-danger">Update Barang?</button>
+        }
+        else
+        {
+            <input type="hidden" name="OrderId" value="" />
+            <button type="submit" class="btn btn-danger">Beli Barang?</button>
+        }
+    </form>*@
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Get the dropdown and input elements for the product
+    var form1 = document.getElementById('form1');
+    var form2 = document.getElementById('form2');
+
+    // menambahkan event listener pada tombol submit pada form1
+    form1.addEventListener('submit', function (e) {
+        // mencegah form1 untuk melakukan submit secara default
+        e.preventDefault();
+
+        // mengirimkan form1
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', form1.action, true);
+        xhr.send(new FormData(form1));
+
+        // menampilkan notifikasi setelah form1 disubmit
+        var notification = document.createElement('div');
+        notification.innerHTML = 'Barang berhasil dibeli. Apakah ingin mengubah menu item?';
+        notification.style.marginTop = '1rem';
+        var submitBtn = document.createElement('button');
+        submitBtn.type = 'button';
+        submitBtn.textContent = 'Ya';
+        submitBtn.classList.add('btn', 'btn-danger');
+        submitBtn.style.marginRight = '1rem';
+        submitBtn.addEventListener('click', function () {
+            // menampilkan form2 ketika tombol 'Ya' ditekan
+            form2.style.display = 'block';
+        });
+        var cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.textContent = 'Tidak';
+        cancelBtn.classList.add('btn', 'btn-secondary');
+        cancelBtn.addEventListener('click', function () {
+            // menghilangkan notifikasi dan tetap menampilkan form1 ketika tombol 'Tidak' ditekan
+            form1.style.display = 'block';
+            notification.remove();
+        });
+        notification.appendChild(submitBtn);
+        notification.appendChild(cancelBtn);
+        form1.parentNode.insertBefore(notification, form1.nextSibling);
+
+        // menghilangkan form1 setelah disubmit
+        form1.style.display = 'none';
+    });
+
+    // menambahkan event listener pada tombol submit pada form2
+    form2.addEventListener('submit', function (e) {
+        // mencegah form2 untuk melakukan submit secara default
+        e.preventDefault();
+
+        // mengirimkan form2
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', form2.action, true);
+        xhr.send(new FormData(form2));
+    });
+
+
+
+    
+    
+        var productDropdown = document.getElementById("product-dropdown");
+        var productInput = document.getElementById("product-input");
+        var hargaBarang = document.getElementById("harga-barang");
+        var idBarang = document.getElementById("id-barang");
+        // Set the initial value of the input element to the value of the first option in the product dropdown
+        productInput.value = productDropdown.options[0].value;
+
+        // Update the product input value whenever the product dropdown value changes
+        productDropdown.addEventListener("change", function () {
+            productInput.value = productDropdown.value;
+            var selectedItem = productDropdown.options[productDropdown.selectedIndex];
+            if (selectedItem) {
+                var harga = selectedItem.getAttribute("data-harga");
+                var idbarang = selectedItem.getAttribute("id-barang");
+                document.getElementById("price-span").textContent = harga ? "Harga satuan barang "+ productInput.value +" adalah Rp." + harga : "";
+                hargaBarang.value = harga ? harga : "";
+                idBarang.value = idbarang ? idbarang : "";
+
+            } else {
+                document.getElementById("price-span").textContent = "";
+                hargaBarang.value = "";
+                idBarang.value = "";
+                idItemOrder.value = "";
+            }
+            checkProductValidity();
+        });
+
+
+        // Update the product dropdown value whenever the product input value changes
+        productInput.addEventListener("input", function () {
+            var inputValue = productInput.value;
+            var option = productDropdown.querySelector("option[value='" + inputValue + "']");
+            if (option) {
+                productDropdown.value = option.value;
+                var harga = option.getAttribute("data-harga");
+                document.getElementById("price-span").textContent = harga ? "Harga satuan barang " + productInput.value + " adalah Rp." + harga : "";
+                checkProductValidity();
+            }
+        });
+
+        // Get the dropdown and input elements for the nama
+        var namaDropdown = document.getElementById("nama-dropdown");
+        var namaInput = document.getElementById("nama-input");
+        var saldoCustomer = document.getElementById("saldo-customer");
+        var idCustomer = document.getElementById("id-customer");
+
+        // Set the initial value of the input element to the value of the first option in the nama dropdown
+        namaInput.value = namaDropdown.options[0].value;
+
+        // Update the nama input value whenever the nama dropdown value changes
+        namaDropdown.addEventListener("change", function () {
+            namaInput.value = namaDropdown.value;
+            var selectedItem = namaDropdown.options[namaDropdown.selectedIndex];
+            if (selectedItem) {
+                var saldo = selectedItem.getAttribute("data-saldo");
+                var id = selectedItem.getAttribute("id_customer");
+                document.getElementById("saldo-span").textContent = saldo ? "Halo "+ namaInput.value +"!" + " saldo yang anda miliki adalah Rp." + saldo : "";
+                saldoCustomer.value = saldo ? saldo : "";
+                idCustomer.value = id ? id : "";
+            } else {
+                document.getElementById("saldo-span").textContent = "";
+                saldoCustomer.value = "";
+                idCustomer.value = "";
+            }
+            checkNamaValidity();
+        });
+
+        // Update the nama dropdown value whenever the nama input value changes
+        namaInput.addEventListener("input", function () {
+            var inputValue = namaInput.value;
+            var option = namaDropdown.querySelector("option[value='" + inputValue + "']");
+            if (option) {
+                namaDropdown.value = option.value;
+                var saldo = option.getAttribute("data-saldo");
+                document.getElementById("saldo-span").textContent = saldo ? "Halo " + namaInput.value + "!" + " saldo yang anda miliki adalah Rp." + saldo : "";
+                checkNamaValidity();
+            }
+        });
+
+        // Function to check if the product input value is valid and show/hide error message
+        function checkProductValidity() {
+            var inputValue = productInput.value;
+            var option = productDropdown.querySelector("option[value='" + inputValue + "']");
+            if (option) {
+                productInput.classList.remove("invalid");
+            } else {
+                productInput.classList.add("invalid");
+                productInput.nextElementSibling.style.display = "inline";
+            }
+        }
+
+        // Function to check if the nama input value is valid and show/hide error message
+        function checkNamaValidity() {
+            var inputValue = namaInput.value;
+            var option = namaDropdown.querySelector("option[value='" + inputValue + "']");
+            if (option) {
+                namaInput.classList.remove("invalid");
+            } else {
+                namaInput.classList.add("invalid");
+                namaInput.nextElementSibling.style.display = "inline";
+            }
+        }
+
+        function handleSubmit(event) {
+            // Do some validation or other action here
+
+            // If everything is OK, submit the form
+            event.target.submit();
+        }
+
+        var form = document.querySelector('form');
+        form.addEventListener('submit', handleSubmit);
+
+        // Check product validity on page load
+        checkProductValidity();
+
+        // Check nama validity on page load
+        checkNamaValidity();
+    </script>
+
